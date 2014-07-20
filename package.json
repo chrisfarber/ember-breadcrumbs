@@ -6,9 +6,14 @@
   "dependencies": {},
   "devDependencies": {
     "coffee-script": "1.7.1",
+    "del": "^0.1.1",
+    "event-stream": "^3.1.5",
     "gulp": "^3.8.6",
     "gulp-coffee": "^2.1.1",
     "gulp-concat": "^2.3.3",
+    "gulp-define-module": "^0.1.1",
+    "gulp-ember-emblem": "^0.1.1",
+    "gulp-ember-templates": "^0.5.2",
     "gulp-uglify": "^0.3.1"
   },
   "scripts": {
