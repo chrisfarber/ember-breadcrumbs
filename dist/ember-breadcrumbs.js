@@ -1,1 +1,69 @@
-(function(){window.BreadCrumbs=Ember.Namespace.create(),Ember.onLoad("Ember.Application",function(r){return r.initializer({name:"ember-breadcrumbs",initialize:function(r,e){return e.register("component:bread-crumbs",BreadCrumbs.BreadCrumbsComponent),e.inject("component:bread-crumbs","router","router:main"),e.inject("component:bread-crumbs","applicationController","controller:application")}})})}).call(this),Ember.TEMPLATES["bread-crumbs"]=Ember.Handlebars.template(function(r,e,t,n,a){function s(r,e){var n,a="";return e.buffer.push("<li "),e.buffer.push(p(t["bind-attr"].call(r,{hash:{"class":"crumb.isCurrent:current:"},hashTypes:{"class":"STRING"},hashContexts:{"class":r},contexts:[],types:[],data:e}))),e.buffer.push(">"),n=t["if"].call(r,"crumb.linkable",{hash:{},hashTypes:{},hashContexts:{},inverse:l.program(3,u,e),fn:l.program(2,o,e),contexts:[r],types:["ID"],data:e}),(n||0===n)&&e.buffer.push(n),e.buffer.push("</li>"),a}function o(r,e){var n,a,s;a=t["link-to"]||r&&r["link-to"],s={hash:{},hashTypes:{},hashContexts:{},inverse:l.program(5,c,e),fn:l.program(3,u,e),contexts:[r],types:["ID"],data:e},n=a?a.call(r,"crumb.path",s):h.call(r,"link-to","crumb.path",s),e.buffer.push(n||0===n?n:"")}function u(r,e){var n;n=t._triageMustache.call(r,"crumb.name",{hash:{},hashTypes:{},hashContexts:{},contexts:[r],types:["ID"],data:e}),e.buffer.push(n||0===n?n:"")}function c(){var r="";return r}this.compilerInfo=[4,">= 1.0.0"],t=this.merge(t,Ember.Handlebars.helpers),a=a||{};var i,l=this,h=t.helperMissing,p=this.escapeExpression;i=t.each.call(e,"crumb","in","breadCrumbs",{hash:{},hashTypes:{},hashContexts:{},inverse:l.program(5,c,a),fn:l.program(1,s,a),contexts:[e,e,e],types:["ID","ID","ID"],data:a}),a.buffer.push(i||0===i?i:"")}),function(){BreadCrumbs.BreadCrumbsComponent=Ember.Component.extend({tagName:"ul",classNames:["breadcrumbs"],router:null,applicationController:null,handlerInfos:function(){var r;return r=this.get("router").router.currentHandlerInfos}.property("applicationController.currentPath"),pathNames:function(){return this.get("handlerInfos").map(function(r){return r.name})}.property("handlerInfos.[]"),controllers:function(){return this.get("handlerInfos").map(function(r){return r.handler.controller})}.property("handlerInfos.[]"),breadCrumbs:function(){var r,e,t,n;return e=this.get("controllers"),n=this.get("pathNames"),r=[],e.forEach(function(e,t){var a,s,o;return a=e.get("breadCrumb"),Ember.isEmpty(a)?void 0:(s=n[t],o=e.get("breadCrumbPath"),r.addObject({name:a,path:o||s,linkable:o!==!1,isCurrent:!1}))}),t=r.get("lastObject"),t&&(t.isCurrent=!0),r}.property("controllers.@each.breadCrumb","controllers.@each.breadCrumbPath","pathNames.[]")})}.call(this);
+(function() {
+  window.BreadCrumbs = Ember.Namespace.create();
+
+  Ember.onLoad("Ember.Application", function(App) {
+    return App.initializer({
+      name: "ember-breadcrumbs",
+      initialize: function(container, app) {
+        app.register("component:bread-crumbs", BreadCrumbs.BreadCrumbsComponent);
+        app.inject("component:bread-crumbs", "router", "router:main");
+        return app.inject("component:bread-crumbs", "applicationController", "controller:application");
+      }
+    });
+  });
+
+}).call(this);
+
+(function() {
+  var defaultTemplate;
+
+  defaultTemplate = "{{#each crumb in breadCrumbs}}\n<li {{bind-attr class=\"crumb.isCurrent:current:\"}}\n  {{#if crumb.linkable}}\n    {{#link-to crumb.path}}\n      {{crumb.name}}\n    {{/link-to}}\n  {{else}}\n    {{crumb.name}}\n  {{/if}}\n</li>\n{{/each}}";
+
+  BreadCrumbs.BreadCrumbsComponent = Ember.Component.extend({
+    tagName: "ul",
+    classNames: ["breadcrumbs"],
+    layout: Ember.Handlebars.compile(defaultTemplate),
+    router: null,
+    applicationController: null,
+    handlerInfos: (function() {
+      var handlerInfos;
+      return handlerInfos = this.get("router").router.currentHandlerInfos;
+    }).property("applicationController.currentPath"),
+    pathNames: (function() {
+      return this.get("handlerInfos").map(function(handlerInfo) {
+        return handlerInfo.name;
+      });
+    }).property("handlerInfos.[]"),
+    controllers: (function() {
+      return this.get("handlerInfos").map(function(handlerInfo) {
+        return handlerInfo.handler.controller;
+      });
+    }).property("handlerInfos.[]"),
+    breadCrumbs: (function() {
+      var breadCrumbs, controllers, deepestCrumb, defaultPaths;
+      controllers = this.get("controllers");
+      defaultPaths = this.get("pathNames");
+      breadCrumbs = [];
+      controllers.forEach(function(controller, index) {
+        var crumbName, defaultPath, specifiedPath;
+        crumbName = controller.get("breadCrumb");
+        if (!Ember.isEmpty(crumbName)) {
+          defaultPath = defaultPaths[index];
+          specifiedPath = controller.get("breadCrumbPath");
+          return breadCrumbs.addObject({
+            name: crumbName,
+            path: specifiedPath || defaultPath,
+            linkable: specifiedPath !== false,
+            isCurrent: false
+          });
+        }
+      });
+      deepestCrumb = breadCrumbs.get("lastObject");
+      if (deepestCrumb) {
+        deepestCrumb.isCurrent = true;
+      }
+      return breadCrumbs;
+    }).property("controllers.@each.breadCrumb", "controllers.@each.breadCrumbPath", "pathNames.[]")
+  });
+
+}).call(this);

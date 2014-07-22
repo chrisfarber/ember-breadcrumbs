@@ -1,6 +1,0 @@
-each crumb in breadCrumbs
-  li class=crumb.isCurrent:current:
-    if crumb.linkable
-      link-to crumb.path | {{crumb.name}}
-    else
-      = crumb.name
