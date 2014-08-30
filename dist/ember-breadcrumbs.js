@@ -17,7 +17,7 @@
 (function() {
   var defaultTemplate;
 
-  defaultTemplate = "{{#each crumb in breadCrumbs}}\n<li {{bind-attr class=\"crumb.isCurrent:current:\"}}\n  {{#if crumb.linkable}}\n    {{#link-to crumb.path}}\n      {{crumb.name}}\n    {{/link-to}}\n  {{else}}\n    {{crumb.name}}\n  {{/if}}\n</li>\n{{/each}}";
+  defaultTemplate = "{{#each crumb in breadCrumbs}}\n<li {{bind-attr class=\"crumb.isCurrent:current:\"}}>\n  {{#if crumb.linkable}}\n    {{#link-to crumb.path}}\n      {{crumb.name}}\n    {{/link-to}}\n  {{else}}\n    {{crumb.name}}\n  {{/if}}\n</li>\n{{/each}}";
 
   BreadCrumbs.BreadCrumbsComponent = Ember.Component.extend({
     tagName: "ul",
