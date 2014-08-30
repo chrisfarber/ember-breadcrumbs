@@ -1,6 +1,6 @@
 defaultTemplate = """
 {{#each crumb in breadCrumbs}}
-<li {{bind-attr class="crumb.isCurrent:current:"}}
+<li {{bind-attr class="crumb.isCurrent:current:"}}>
   {{#if crumb.linkable}}
     {{#link-to crumb.path}}
       {{crumb.name}}
