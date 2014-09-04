@@ -13,8 +13,7 @@ defaultTemplate = """
 """
 
 BreadCrumbs.BreadCrumbsComponent = Ember.Component.extend
-
-  tagName: "ul"
+  tagName: "div"
   classNames: ["breadcrumbs"]
 
   layout: Ember.Handlebars.compile defaultTemplate
@@ -43,19 +42,33 @@ BreadCrumbs.BreadCrumbsComponent = Ember.Component.extend
     breadCrumbs = []
 
     controllers.forEach (controller, index) ->
-      crumbName = controller.get "breadCrumb"
+      crumbName  = controller.get "breadCrumb"
+      crumbNames = controller.get "breadCrumbs"
+
+      defaultPath = defaultPaths[index]
+
       if !Ember.isEmpty crumbName
-        defaultPath = defaultPaths[index]
         specifiedPath = controller.get "breadCrumbPath"
         breadCrumbs.addObject
           name: crumbName
           path: specifiedPath || defaultPath
           linkable: (specifiedPath != false)
           isCurrent: false
+      if !Ember.isEmpty crumbNames
+        crumbNames.forEach (obj) ->
+          name = obj[0]
+          path = obj[1]
+
+          breadCrumbs.addObject
+            name: name
+            path: path || defaultPath
+            linkable:(path != undefined)
+            isCurrent: false
+
 
     deepestCrumb = breadCrumbs.get "lastObject"
     if deepestCrumb
       deepestCrumb.isCurrent = true
 
     breadCrumbs
-  ).property "controllers.@each.breadCrumb", "controllers.@each.breadCrumbPath", "pathNames.[]"
+  ).property "controllers.@each.breadCrumb", "controllers.@each.breadCrumbs", "controllers.@each.breadCrumbPath", "pathNames.[]"
