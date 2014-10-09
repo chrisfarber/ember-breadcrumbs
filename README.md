@@ -9,7 +9,7 @@ You can install via the bower package `ember-breadcrumbs`. If you're using
 ember-cli, you should add a line to your `Brocfile.js` that looks like:
 
 ```
-app.import("vendor/ember-breadcrumbs/dist/ember-breadcrumbs.js");
+app.import("bower_components/ember-breadcrumbs/dist/ember-breadcrumbs.js");
 ```
 
 ## Usage
