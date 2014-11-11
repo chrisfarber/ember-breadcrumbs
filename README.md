@@ -9,7 +9,7 @@ You can install via the bower package `ember-breadcrumbs`. If you're using
 ember-cli, you should add a line to your `Brocfile.js` that looks like:
 
 ```
-app.import("bower_components/ember-breadcrumbs/dist/ember-breadcrumbs.js");
+app.import("vendor/ember-breadcrumbs/dist/ember-breadcrumbs.js");
 ```
 
 ## Usage
@@ -30,6 +30,9 @@ The properties are:
 - **breadCrumb**: The text to display. Required.
 - **breadCrumbPath**: The path (e.g., `"post.edit"`) that the crumb will link to.
   This property is optional; the default will be the route's path.
+- **breadCrumbIconClass**: The icon class to display along side of the breadcrumb. 
+  The icon renders Bootstrap style (`<span class="icon"></span>`). The icon itself 
+  will not be linkable. This property is optional.
 
 If the `breadCrumb` property is not specified, then no crumb will be displayed.
 Note that this means, by default, no crumbs will be displayed.

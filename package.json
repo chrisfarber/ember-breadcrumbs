@@ -1,6 +1,6 @@
 {
   "name": "ember-breadcrumbs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A breadcrumbs component for Ember.js",
   "main": "gulpfile.js",
   "dependencies": {},
