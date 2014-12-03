@@ -44,11 +44,13 @@ BreadCrumbs.BreadCrumbsComponent = Ember.Component.extend
 
     controllers.forEach (controller, index) ->
       crumbName = controller.get "breadCrumb"
+      crumbData = controller.get "breadCrumbData"
       if !Ember.isEmpty crumbName
         defaultPath = defaultPaths[index]
         specifiedPath = controller.get "breadCrumbPath"
         breadCrumbs.addObject
           name: crumbName
+          data: crumbData
           path: specifiedPath || defaultPath
           linkable: (specifiedPath != false)
           isCurrent: false

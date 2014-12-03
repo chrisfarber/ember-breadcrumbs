@@ -45,13 +45,15 @@
       defaultPaths = this.get("pathNames");
       breadCrumbs = [];
       controllers.forEach(function(controller, index) {
-        var crumbName, defaultPath, specifiedPath;
+        var crumbData, crumbName, defaultPath, specifiedPath;
         crumbName = controller.get("breadCrumb");
+        crumbData = controller.get("breadCrumbData");
         if (!Ember.isEmpty(crumbName)) {
           defaultPath = defaultPaths[index];
           specifiedPath = controller.get("breadCrumbPath");
           return breadCrumbs.addObject({
             name: crumbName,
+            data: crumbData,
             path: specifiedPath || defaultPath,
             linkable: specifiedPath !== false,
             isCurrent: false

@@ -28,8 +28,12 @@ bread crumb will be displayed.
 
 The properties are:
 - **breadCrumb**: The text to display. Required.
-- **breadCrumbPath**: The path (e.g., `"post.edit"`) that the crumb will link to.
-  This property is optional; the default will be the route's path.
+- **breadCrumbPath**: The path (e.g., `"post.edit"`) that the crumb will link
+  to. This property is optional; the default will be the route's path.
+- **breadCrumbData**: Optional arbitrary data you would like to attach to the
+  breadcrumb item, which will be available in the template as `crumb.data`. This
+  is useful if you use a custom template and want to use the data for markup
+  purposes.
 
 If the `breadCrumb` property is not specified, then no crumb will be displayed.
 Note that this means, by default, no crumbs will be displayed.
