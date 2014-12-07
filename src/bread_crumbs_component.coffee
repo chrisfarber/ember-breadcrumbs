@@ -18,7 +18,7 @@ defaultTemplate = """
 BreadCrumbs.BreadCrumbsComponent = Ember.Component.extend
 
   tagName: "ul"
-  classNames: ["breadcrumbs"]
+  classNames: ["breadcrumb"]
 
   layout: Ember.Handlebars.compile defaultTemplate
 
