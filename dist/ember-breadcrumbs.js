@@ -17,11 +17,11 @@
 (function() {
   var defaultTemplate;
 
-  defaultTemplate = "{{#each crumb in breadCrumbs}}\n<li {{bind-attr class=\"crumb.isCurrent:current:\"}}>\n  {{#if crumb.linkable}}\n    {{#link-to crumb.path}}\n      {{crumb.name}}\n    {{/link-to}}\n  {{else}}\n    {{crumb.name}}\n  {{/if}}\n</li>\n{{/each}}";
+  defaultTemplate = "{{#each crumb in breadCrumbs}}\n<li {{bind-attr class=\"crumb.isCurrent:current:\"}}>\n  {{#if crumb.hasIcon}}\n    <span {{bind-attr class=\"crumb.iconClass\"}}></span>\n  {{/if}}\n  {{#if crumb.linkable}}\n    {{#link-to crumb.path}}\n      {{crumb.name}}\n    {{/link-to}}\n  {{else}}\n    {{crumb.name}}\n  {{/if}}\n</li>\n{{/each}}";
 
   BreadCrumbs.BreadCrumbsComponent = Ember.Component.extend({
     tagName: "ul",
-    classNames: ["breadcrumbs"],
+    classNames: ["breadcrumb"],
     layout: Ember.Handlebars.compile(defaultTemplate),
     router: null,
     applicationController: null,
@@ -45,16 +45,19 @@
       defaultPaths = this.get("pathNames");
       breadCrumbs = [];
       controllers.forEach(function(controller, index) {
-        var crumbName, defaultPath, specifiedPath;
+        var crumbName, defaultPath, iconClass, specifiedPath;
         crumbName = controller.get("breadCrumb");
         if (!Ember.isEmpty(crumbName)) {
           defaultPath = defaultPaths[index];
           specifiedPath = controller.get("breadCrumbPath");
+          iconClass = controller.get("breadCrumbIconClass");
           return breadCrumbs.addObject({
             name: crumbName,
             path: specifiedPath || defaultPath,
             linkable: specifiedPath !== false,
-            isCurrent: false
+            isCurrent: false,
+            hasIcon: !Ember.isEmpty(iconClass),
+            iconClass: iconClass
           });
         }
       });

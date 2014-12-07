@@ -1,6 +1,9 @@
 defaultTemplate = """
 {{#each crumb in breadCrumbs}}
 <li {{bind-attr class="crumb.isCurrent:current:"}}>
+  {{#if crumb.hasIcon}}
+    <span {{bind-attr class=\"crumb.iconClass\"}}></span>
+  {{/if}}
   {{#if crumb.linkable}}
     {{#link-to crumb.path}}
       {{crumb.name}}
@@ -15,7 +18,7 @@ defaultTemplate = """
 BreadCrumbs.BreadCrumbsComponent = Ember.Component.extend
 
   tagName: "ul"
-  classNames: ["breadcrumbs"]
+  classNames: ["breadcrumb"]
 
   layout: Ember.Handlebars.compile defaultTemplate
 
@@ -47,11 +50,14 @@ BreadCrumbs.BreadCrumbsComponent = Ember.Component.extend
       if !Ember.isEmpty crumbName
         defaultPath = defaultPaths[index]
         specifiedPath = controller.get "breadCrumbPath"
+        iconClass = controller.get("breadCrumbIconClass");
         breadCrumbs.addObject
           name: crumbName
           path: specifiedPath || defaultPath
           linkable: (specifiedPath != false)
           isCurrent: false
+          hasIcon: !Ember.isEmpty(iconClass),
+          iconClass: iconClass
 
     deepestCrumb = breadCrumbs.get "lastObject"
     if deepestCrumb
