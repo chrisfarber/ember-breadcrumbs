@@ -27,15 +27,17 @@ BreadCrumbsComponent = Ember.Component.extend
     breadCrumbs = []
 
     controllers.forEach (controller, index) ->
-      crumbName = controller.get "breadCrumb"
-      if !Ember.isEmpty crumbName
-        defaultPath = defaultPaths[index]
-        specifiedPath = controller.get "breadCrumbPath"
-        breadCrumbs.addObject
-          name: crumbName
-          path: specifiedPath || defaultPath
-          linkable: (specifiedPath != false)
-          isCurrent: false
+      crumbs = controller.get "breadCrumbs"
+      if !Ember.isEmpty crumbs
+        for crumb in crumbs
+          if Ember.typeOf(crumb) != 'object' then crumb = label: crumb
+          linkable = if crumb.linkable? then crumb.linkable else true
+          breadCrumbs.addObject
+            label: crumb.label
+            path: crumb.path || defaultPaths[index]
+            model: crumb.model
+            linkable: linkable
+            isCurrent: false
 
     deepestCrumb = breadCrumbs.get "lastObject"
     if deepestCrumb

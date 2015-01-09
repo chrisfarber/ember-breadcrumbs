@@ -25,17 +25,27 @@ BreadCrumbsComponent = Ember.Component.extend({
     defaultPaths = this.get("pathNames");
     breadCrumbs = [];
     controllers.forEach(function(controller, index) {
-      var crumbName, defaultPath, specifiedPath;
-      crumbName = controller.get("breadCrumb");
-      if (!Ember.isEmpty(crumbName)) {
-        defaultPath = defaultPaths[index];
-        specifiedPath = controller.get("breadCrumbPath");
-        return breadCrumbs.addObject({
-          name: crumbName,
-          path: specifiedPath || defaultPath,
-          linkable: specifiedPath !== false,
-          isCurrent: false
-        });
+      var crumb, crumbs, linkable, _i, _len, _results;
+      crumbs = controller.get("breadCrumbs");
+      if (!Ember.isEmpty(crumbs)) {
+        _results = [];
+        for (_i = 0, _len = crumbs.length; _i < _len; _i++) {
+          crumb = crumbs[_i];
+          if (Ember.typeOf(crumb) !== 'object') {
+            crumb = {
+              label: crumb
+            };
+          }
+          linkable = crumb.linkable != null ? crumb.linkable : true;
+          _results.push(breadCrumbs.addObject({
+            label: crumb.label,
+            path: crumb.path || defaultPaths[index],
+            model: crumb.model,
+            linkable: linkable,
+            isCurrent: false
+          }));
+        }
+        return _results;
       }
     });
     deepestCrumb = breadCrumbs.get("lastObject");
