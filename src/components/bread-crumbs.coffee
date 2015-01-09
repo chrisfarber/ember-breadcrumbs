@@ -1,23 +1,7 @@
-defaultTemplate = """
-{{#each crumb in breadCrumbs}}
-<li {{bind-attr class="crumb.isCurrent:current:"}}>
-  {{#if crumb.linkable}}
-    {{#link-to crumb.path}}
-      {{crumb.name}}
-    {{/link-to}}
-  {{else}}
-    {{crumb.name}}
-  {{/if}}
-</li>
-{{/each}}
-"""
-
-BreadCrumbs.BreadCrumbsComponent = Ember.Component.extend
+BreadCrumbsComponent = Ember.Component.extend
 
   tagName: "ul"
   classNames: ["breadcrumbs"]
-
-  layout: Ember.Handlebars.compile defaultTemplate
 
   router: null
   applicationController: null
@@ -59,3 +43,5 @@ BreadCrumbs.BreadCrumbsComponent = Ember.Component.extend
 
     breadCrumbs
   ).property "controllers.@each.breadCrumb", "controllers.@each.breadCrumbPath", "pathNames.[]"
+
+`export default BreadCrumbsComponent`
