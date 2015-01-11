@@ -28,15 +28,17 @@ export default Ember.Component.extend({
     var breadCrumbs = [];
 
     controllers.forEach(function(controller, index) {
-      var crumbName = controller.get("breadCrumb");
-      if (!Ember.isEmpty(crumbName)) {
-        var defaultPath = defaultPaths[index];
-        var specifiedPath = controller.get("breadCrumbPath");
-        return breadCrumbs.addObject({
-          name: crumbName,
-          path: specifiedPath || defaultPath,
-          linkable: specifiedPath !== false,
-          isCurrent: false
+      var crumbs = controller.get("breadCrumbs");
+      if (!Ember.isEmpty(crumbs)) {
+        crumbs.map(function(crumb) {
+          if (Ember.typeOf(crumb) !== 'object') crumb = {label: crumb};
+          breadCrumbs.push({
+            label: crumb.label,
+            path: crumb.path || defaultPaths[index],
+            model: crumb.model,
+            linkable: !Ember.isNone(crumb.linkable) ? crumb.linkable : true,
+            isCurrent: false
+          });
         });
       }
     });
