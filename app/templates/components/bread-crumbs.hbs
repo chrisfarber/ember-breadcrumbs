@@ -1,11 +1,13 @@
-{{#each crumb in breadCrumbs}}
-  <li {{bind-attr class="crumb.isCurrent:current:"}}>
-    {{#if crumb.linkable}}
-      {{#link-to crumb.path}}
+<ul class="breadcrumbs">
+  {{#each crumb in breadCrumbs}}
+    <li {{bind-attr class="crumb.isCurrent:current:"}}>
+      {{#if crumb.linkable}}
+        {{#link-to crumb.path}}
+          {{crumb.name}}
+        {{/link-to}}
+      {{else}}
         {{crumb.name}}
-      {{/link-to}}
-    {{else}}
-      {{crumb.name}}
-    {{/if}}
-  </li>
-{{/each}}
+      {{/if}}
+    </li>
+  {{/each}}
+</ul>
