@@ -10,17 +10,8 @@ export default Ember.Component.extend({
     return this.get("router").router.currentHandlerInfos;
   }).property("applicationController.currentPath"),
 
-  pathNames: (function() {
-    return this.get("handlerInfos").map(function(handlerInfo) {
-      return handlerInfo.name;
-    });
-  }).property("handlerInfos.[]"),
-
-  controllers: (function() {
-    return this.get("handlerInfos").map(function(handlerInfo) {
-      return handlerInfo.handler.controller;
-    });
-  }).property("handlerInfos.[]"),
+  pathNames: Ember.computed.mapBy("handlerInfos", "name"),
+  controllers: Ember.computed.mapBy("handlerInfos", "handler.controller"),
 
   breadCrumbs: (function() {
     var controllers = this.get("controllers");
