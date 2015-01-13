@@ -32,13 +32,13 @@ export default Ember.Component.extend({
       if (!Ember.isEmpty(crumbs)) {
         crumbs.map(function(crumb) {
           if (Ember.typeOf(crumb) !== 'object') crumb = {label: crumb};
-          breadCrumbs.push({
+          breadCrumbs.push(Ember.Object.create({
             label: crumb.label,
             path: crumb.path || defaultPaths[index],
             model: crumb.model,
             linkable: !Ember.isNone(crumb.linkable) ? crumb.linkable : true,
             isCurrent: false
-          });
+          }));
         });
       }
     });
