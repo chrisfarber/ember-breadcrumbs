@@ -12,6 +12,14 @@ Installation is accomplished by using `ember-cli` addons. From within your
 ember install:addon ember-breadcrumbs
 ```
 
+If you have an older version of `ember-cli`, this may not work. If you're sure that your version of `ember-cli` supports addons, then you may be able to use this in lieu of upgrading:
+
+```
+npm install --save-dev ember-cli
+```
+
+But you should probably just upgrade.
+
 ## Usage
 
 To add the breadcrumbs to your app, simply throw the component into one of your
