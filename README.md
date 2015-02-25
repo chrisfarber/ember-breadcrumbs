@@ -5,12 +5,20 @@ An Ember.js component for adding breadcrumbs to your app.
 
 ## Installing
 
-You can install via the bower package `ember-breadcrumbs`. If you're using
-ember-cli, you should add a line to your `Brocfile.js` that looks like:
+Installation is accomplished by using `ember-cli` addons. From within your
+`ember-cli` app, do:
 
 ```
-app.import("bower_components/ember-breadcrumbs/dist/ember-breadcrumbs.js");
+ember install:addon ember-breadcrumbs
 ```
+
+If you have an older version of `ember-cli`, this may not work. If you're sure that your version of `ember-cli` supports addons, then you may be able to use this in lieu of upgrading:
+
+```
+npm install --save-dev ember-cli
+```
+
+But you should probably just upgrade.
 
 ## Usage
 
@@ -19,6 +27,9 @@ templates: `{{bread-crumbs}}`.
 
 Don't worry about which template. It will automatically update itself as your
 route changes. There are no options to provide to the component.
+
+For an example, check out the
+[sample app](https://github.com/chrisfarber/ember-breadcrumbs-sample-app).
 
 ### Controlling crumbs
 
@@ -39,16 +50,20 @@ Note that this means, by default, no crumbs will be displayed.
 `ember-breadcrumbs` is styled, by default, for
 [Foundation's Breadcrumbs](http://foundation.zurb.com/docs/components/breadcrumbs.html).
 
-If you like, you can reopen the component and replace the layout. E.g.:
+Thanks to `ember-cli`'s addon support, it's now quite easy to replace this with
+your own markup. Simply add a template to your project at the path:
 
 ```
-BreadCrumbs.BreadCrumbsComponent.reopen({
-  tagName: "ul",
-  classNames: ["fancy-crumbs"],
-  layout: null,
-  layoutName: "other-template"
-});
+app/templates/components/bread-crumbs.hbs
 ```
+
+Your template can reference `breadCrumbs`, which is an array of objects containing
+the following properties:
+
+- **name**: The title of the breadcrumb.
+- **path**: The path that the crumb should link to. Can pass to `link-to`.
+- **linkable**: True unless the controller's breadCrumbPath was false.
+- **isCurrent**: True for the most specific (last) bread crumb, otherwise false.
 
 ## License
 
