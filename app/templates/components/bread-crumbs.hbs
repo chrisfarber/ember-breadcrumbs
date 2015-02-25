@@ -1,9 +1,15 @@
 {{#each crumb in breadCrumbs}}
   <li {{bind-attr class="crumb.isCurrent:current:"}}>
     {{#if crumb.linkable}}
-      {{#link-to crumb.path crumb.model}}
-        {{crumb.label}}
-      {{/link-to}}
+      {{#if crumb.model}}{{! to avoid null/undefined model in link-to }}
+        {{#link-to crumb.path crumb.model}}
+          {{crumb.label}}
+        {{/link-to}}
+      {{else}}
+        {{#link-to crumb.path}}
+          {{crumb.label}}
+        {{/link-to}}
+      {{/if}}
     {{else}}
       {{crumb.label}}
     {{/if}}
