@@ -38,5 +38,5 @@ export default Ember.Component.extend({
     }
 
     return breadCrumbs;
-  }).property("controllers.@each.breadCrumb", "controllers.@each.breadCrumbPath", "pathNames.[]")
+  }).property("controllers.@each.breadCrumbs", "pathNames.[]")
 });
