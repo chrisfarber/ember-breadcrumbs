@@ -17,7 +17,7 @@ export default Ember.Component.extend({
     var breadCrumbs = [];
 
     controllers.forEach(function(controller, index) {
-      var crumbName = controller.get("breadCrumb");
+      var crumbName = controller.get("model.breadCrumb");
       if (!Ember.isEmpty(crumbName)) {
         var defaultPath = defaultPaths[index];
         var specifiedPath = controller.get("breadCrumbPath");
