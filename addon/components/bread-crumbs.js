@@ -4,24 +4,30 @@ export default Ember.Component.extend({
   router: null,
   applicationController: null,
 
-  handlerInfos: (function() {
+  handlerInfos: function() {
     return this.get("router").router.currentHandlerInfos;
-  }).property("applicationController.currentPath"),
+  }.property("applicationController.currentPath"),
 
   pathNames: Ember.computed.mapBy("handlerInfos", "name"),
   controllers: Ember.computed.mapBy("handlerInfos", "handler.controller"),
 
-  breadCrumbs: (function() {
+  breadCrumbs: function() {
     var controllers = this.get("controllers");
     var defaultPaths = this.get("pathNames");
     var breadCrumbs = [];
 
     controllers.forEach(function(controller, index) {
       var crumbs = controller.get("breadCrumbs");
+      if (!crumbs && controller.get("breadCrumb")) {
+        crumbs = [{
+          label: controller.get("breadCrumb"),
+          path: controller.get("breadCrumbPath")
+        }];
+      }
       if (!Ember.isEmpty(crumbs)) {
         crumbs.map(function(crumb) {
           if (Ember.typeOf(crumb) !== 'object') crumb = {label: crumb};
-          breadCrumbs.push(Ember.Object.create({
+          breadCrumbs.addObject(Ember.Object.create({
             label: crumb.label,
             path: crumb.path || defaultPaths[index],
             model: crumb.model,
@@ -38,5 +44,6 @@ export default Ember.Component.extend({
     }
 
     return breadCrumbs;
-  }).property("controllers.@each.breadCrumbs", "pathNames.[]")
+  }.property("controllers.@each.breadCrumbs",
+      "controllers.@each.breadCrumb", "controllers.@each.breadCrumbPath", "pathNames.[]")
 });
