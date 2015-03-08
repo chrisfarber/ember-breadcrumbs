@@ -47,6 +47,18 @@ The properties are:
 If the `breadCrumb` property is not specified, then no crumb will be displayed.
 Note that this means, by default, no crumbs will be displayed.
 
+### Showing multiple crumbs from one controller
+
+Sometimes you might need to display multiple breadcrumbs from the same controller.
+To accomplish this, you can define the `breadCrumbs` property on your controller.
+
+This property should be an array of objects (one object per crumb) that contain
+the following attributes:
+- **label**: The text to display as the bread crumb. Required.
+- **path**: The path that the crumb should link to. Optional; if not specified,
+  the controller's route's path will be used instead.
+- **model**: An object that should be passed into `{{link-to}}`. Optional.
+
 ## Customization
 
 `ember-breadcrumbs` is styled, by default, for
