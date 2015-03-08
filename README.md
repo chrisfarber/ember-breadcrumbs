@@ -41,6 +41,8 @@ The properties are:
 - **breadCrumb**: The text to display. Required.
 - **breadCrumbPath**: The path (e.g., `"post.edit"`) that the crumb will link to.
   This property is optional; the default will be the route's path.
+- **breadCrumbModel**: An object that will be passed into the `{{link-to}}` helper.
+  This property is optional.
 
 If the `breadCrumb` property is not specified, then no crumb will be displayed.
 Note that this means, by default, no crumbs will be displayed.
@@ -60,8 +62,9 @@ app/templates/components/bread-crumbs.hbs
 Your template can reference `breadCrumbs`, which is an array of objects containing
 the following properties:
 
-- **name**: The title of the breadcrumb.
+- **label**: The title of the breadcrumb.
 - **path**: The path that the crumb should link to. Can pass to `link-to`.
+- **model**: The model object that can be passed to `link-to`. May not be present.
 - **linkable**: True unless the controller's breadCrumbPath was false.
 - **isCurrent**: True for the most specific (last) bread crumb, otherwise false.
 

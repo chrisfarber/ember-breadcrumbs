@@ -17,25 +17,26 @@ export default Ember.Component.extend({
     var breadCrumbs = [];
 
     controllers.forEach(function(controller, index) {
-      var crumbs = controller.get("breadCrumbs");
-      if (!crumbs && controller.get("breadCrumb")) {
-        crumbs = [{
-          label: controller.get("breadCrumb"),
-          path: controller.get("breadCrumbPath")
-        }];
-      }
-      if (!Ember.isEmpty(crumbs)) {
-        crumbs.map(function(crumb) {
-          if (Ember.typeOf(crumb) !== 'object') crumb = {label: crumb};
-          breadCrumbs.addObject(Ember.Object.create({
-            label: crumb.label,
-            path: crumb.path || defaultPaths[index],
-            model: crumb.model,
-            linkable: !Ember.isNone(crumb.linkable) ? crumb.linkable : true,
-            isCurrent: false
-          }));
+      var crumbs = controller.get("breadCrumbs") || [];
+      var singleCrumb = controller.get("breadCrumb");
+
+      if (!Ember.isBlank(singleCrumb)) {
+        crumbs.push({
+          label: singleCrumb,
+          path: controller.get("breadCrumbPath"),
+          model: controller.get("breadCrumbModel"),
         });
       }
+
+      crumbs.forEach(function (crumb) {
+        breadCrumbs.addObject(Ember.Object.create({
+          label: crumb.label,
+          path: crumb.path || defaultPaths[index],
+          model: crumb.model,
+          linkable: !Ember.isNone(crumb.linkable) ? crumb.linkable : true,
+          isCurrent: false
+        }));
+      });
     });
 
     var deepestCrumb = breadCrumbs.get("lastObject");
@@ -44,6 +45,10 @@ export default Ember.Component.extend({
     }
 
     return breadCrumbs;
-  }.property("controllers.@each.breadCrumbs",
-      "controllers.@each.breadCrumb", "controllers.@each.breadCrumbPath", "pathNames.[]")
+  }.property(
+    "controllers.@each.breadCrumbs",
+    "controllers.@each.breadCrumb",
+    "controllers.@each.breadCrumbPath",
+    "controllers.@each.breadCrumbModel",
+    "pathNames.[]")
 });
