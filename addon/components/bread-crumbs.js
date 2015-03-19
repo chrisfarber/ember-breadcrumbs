@@ -8,6 +8,14 @@ export default Ember.Component.extend({
     return this.get("router").router.currentHandlerInfos;
   }.property("applicationController.currentPath"),
 
+  /*
+    For the pathNames and controllers properties, we must be careful not to NOT
+    specify the properties of the route in our dependent keys.
+
+    Observing the controller property of the route causes some serious problems:
+    https://github.com/chrisfarber/ember-breadcrumbs/issues/21
+  */
+
   pathNames: (function() {
     return this.get("handlerInfos").map(function(handlerInfo) {
       return handlerInfo.name;
