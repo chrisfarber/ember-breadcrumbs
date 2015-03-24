@@ -1,5 +1,9 @@
 # ember-breadcrumbs changelog
 
+### 0.1.4
+
+- [Bugfix] Remove erroneous "main" entry in package.json.
+
 ### 0.1.3
 
 - [Bugfix] Fix bug introduced in 0.1.2 that caused the addon to observe the Ember.Route's controller property.
