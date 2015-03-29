@@ -34,7 +34,7 @@ export default Ember.Component.extend({
     var breadCrumbs = [];
 
     controllers.forEach(function(controller, index) {
-      if (!controller.hasOwnProperty('breadCrumb')) {
+      if (!controller.hasOwnProperty('breadCrumb') && !controller.hasOwnProperty('breadCrumbs')) {
         return;
       }
       var crumbs = controller.get("breadCrumbs") || [];
