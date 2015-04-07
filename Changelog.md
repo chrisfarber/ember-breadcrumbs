@@ -1,5 +1,9 @@
 # ember-breadcrumbs changelog
 
+### 0.1.5
+
+- [Enhancement] Avoid triggering spurious deprecation warnings
+
 ### 0.1.4
 
 - [Bugfix] Remove erroneous "main" entry in package.json.
