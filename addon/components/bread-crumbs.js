@@ -1,12 +1,5 @@
 import Ember from "ember";
 
-function getWithoutProxy(obj, propertyName) {
-  if (obj.hasOwnProperty(propertyName)) {
-    return obj.get(propertyName);
-  }
-  return null;
-}
-
 export default Ember.Component.extend({
   router: null,
   applicationController: null,
@@ -41,14 +34,14 @@ export default Ember.Component.extend({
     var breadCrumbs = [];
 
     controllers.forEach(function(controller, index) {
-      var crumbs = getWithoutProxy(controller, "breadCrumbs") || [];
-      var singleCrumb = getWithoutProxy(controller, "breadCrumb");
+      var crumbs = controller.get("breadCrumbs") || [];
+      var singleCrumb = controller.get("breadCrumb");
 
       if (!Ember.isBlank(singleCrumb)) {
         crumbs.push({
           label: singleCrumb,
-          path: getWithoutProxy(controller, "breadCrumbPath"),
-          model: getWithoutProxy(controller, "breadCrumbModel"),
+          path: controller.get("breadCrumbPath"),
+          model: controller.get("breadCrumbModel"),
         });
       }
 
@@ -76,4 +69,3 @@ export default Ember.Component.extend({
     "controllers.@each.breadCrumbModel",
     "pathNames.[]")
 });
-

@@ -1,5 +1,9 @@
 # ember-breadcrumbs changelog
 
+### 0.1.6
+
+- [Bugfix] Revert 0.1.5. The attempted fix caused other problems, see issue #27.
+
 ### 0.1.5
 
 - [Enhancement] Avoid triggering spurious deprecation warnings
