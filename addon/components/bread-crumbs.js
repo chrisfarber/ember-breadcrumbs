@@ -4,9 +4,9 @@ export default Ember.Component.extend({
   router: null,
   applicationController: null,
 
-  handlerInfos: function() {
+  handlerInfos: Ember.computed("applicationController.currentPath", function() {
     return this.get("router").router.currentHandlerInfos;
-  }.property("applicationController.currentPath"),
+  }),
 
   /*
     For the pathNames and controllers properties, we must be careful not to NOT
@@ -16,25 +16,29 @@ export default Ember.Component.extend({
     https://github.com/chrisfarber/ember-breadcrumbs/issues/21
   */
 
-  pathNames: (function() {
+  pathNames: Ember.computed("handlerInfos.[]", function() {
     return this.get("handlerInfos").map(function(handlerInfo) {
       return handlerInfo.name;
     });
-  }).property("handlerInfos.[]"),
+  }),
 
-  controllers: (function() {
+  controllers: Ember.computed("handlerInfos.[]", function() {
     return this.get("handlerInfos").map(function(handlerInfo) {
       return handlerInfo.handler.controller;
     });
-  }).property("handlerInfos.[]"),
+  }),
 
-  breadCrumbs: function() {
+  breadCrumbs: Ember.computed("controllers.@each.breadCrumbs",
+    "controllers.@each.breadCrumb",
+    "controllers.@each.breadCrumbPath",
+    "controllers.@each.breadCrumbModel",
+    "pathNames.[]", function() {
     var controllers = this.get("controllers");
     var defaultPaths = this.get("pathNames");
-    var breadCrumbs = [];
+    var breadCrumbs = Ember.A([]);
 
     controllers.forEach(function(controller, index) {
-      var crumbs = controller.get("breadCrumbs") || [];
+      var crumbs = controller.get("breadCrumbs") || Ember.A([]);
       var singleCrumb = controller.get("breadCrumb");
 
       if (!Ember.isBlank(singleCrumb)) {
@@ -56,16 +60,11 @@ export default Ember.Component.extend({
       });
     });
 
-    var deepestCrumb = breadCrumbs.get("lastObject");
+    var deepestCrumb = Ember.get(breadCrumbs, "lastObject");
     if (deepestCrumb) {
       deepestCrumb.isCurrent = true;
     }
 
     return breadCrumbs;
-  }.property(
-    "controllers.@each.breadCrumbs",
-    "controllers.@each.breadCrumb",
-    "controllers.@each.breadCrumbPath",
-    "controllers.@each.breadCrumbModel",
-    "pathNames.[]")
+  })
 });
