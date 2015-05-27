@@ -47,6 +47,26 @@ The properties are:
 If the `breadCrumb` property is not specified, then no crumb will be displayed.
 Note that this means, by default, no crumbs will be displayed.
 
+### Dynamic content in crumbs
+
+If you find yourself needing to add some logic to change what text is displayed in
+a breadcrumb (or what path it links to, or the model it provides), there is no need
+to do any thing special.
+
+Just define your `breadCrumb` property (or any other properties) as a computed property that
+depends on the other information you need. Your breadcrumbs will automatically update in
+realtime, thanks to Ember.
+
+```js
+  breadCrumb: Ember.computed("model.name", {
+    get() {
+      let modelName = this.get("model.name");
+      return `Blog Post: ${modelName}`;
+    }
+  }),
+  breadCrumbModel: Ember.computed.alias("model")
+```
+
 ### Showing multiple crumbs from one controller
 
 Sometimes you might need to display multiple breadcrumbs from the same controller.
