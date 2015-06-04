@@ -1,5 +1,11 @@
 # ember-breadcrumbs changelog
 
+### 0.1.7
+
+- [Bugfix] Compatibility with Glimmer/Ember 1.13
+- [Bugfix] Add tmp dir to npmignore
+- [Bugfix] Don't depend on Ember extending prototypes
+
 ### 0.1.6
 
 - [Bugfix] Revert 0.1.5. The attempted fix caused other problems, see issue #27.
