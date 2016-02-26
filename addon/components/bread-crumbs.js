@@ -52,9 +52,9 @@ export default Ember.Component.extend({
       crumbs.forEach(function (crumb) {
         breadCrumbs.addObject(Ember.Object.create({
           label: crumb.label,
-          path: crumb.path || defaultPaths[index],
+          path: crumb.path,
           model: crumb.model,
-          linkable: !Ember.isNone(crumb.linkable) ? crumb.linkable : true,
+          linkable: Ember.isPresent(crumb.linkable) ? crumb.linkable : crumb.path !== false,
           isCurrent: false
         }));
       });
