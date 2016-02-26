@@ -1,5 +1,10 @@
 # ember-breadcrumbs changelog
 
+### 0.1.8
+
+- [Bugfix] Fix behavior of linkable, see issue #35
+- [Bugfix] Avoid deprecation warnings, #42
+
 ### 0.1.7
 
 - [Bugfix] Compatibility with Glimmer/Ember 1.13
@@ -24,7 +29,7 @@
 
 ### 0.1.2
 
-- [Enhancement] Add support for having a single controller provide multiple breadcrumbs. 
+- [Enhancement] Add support for having a single controller provide multiple breadcrumbs.
 
 ### 0.1.1
 
