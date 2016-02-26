@@ -100,6 +100,16 @@ the following properties:
 - **linkable**: True unless the controller's breadCrumbPath was false.
 - **isCurrent**: True for the most specific (last) bread crumb, otherwise false.
 
+## Contributing
+
+Some things would be nice to have:
+
+- Black box / system tests!!
+- Reimagined support for routable components, if/when that lands in Ember.
+
+I'm also open to handing off the stewardship of this addon. I haven't been able to
+give the time that this project needs.
+
 ## License
 
 MIT License.
