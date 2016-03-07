@@ -1,5 +1,9 @@
 # ember-breadcrumbs changelog
 
+### 0.1.9
+
+- [Bugfix] Default paths work again
+
 ### 0.1.8
 
 - [Bugfix] Fix behavior of linkable, see issue #35
