@@ -1,11 +1,15 @@
 import Ember from "ember";
 
+const {
+  inject: { service }
+} = Ember
+
 export default Ember.Component.extend({
-  router: null,
+  router: service(),
   applicationController: null,
 
   handlerInfos: Ember.computed("applicationController.currentPath", function() {
-    return this.get("router").router.currentHandlerInfos;
+    return this.get("router")._routerMicrolib.currentHandlerInfos;
   }),
 
   /*
