@@ -18,7 +18,7 @@
   "author": "Chris Farber",
   "license": "MIT",
   "dependencies": {
-    "ember-cli-babel": "^4.3.0"
+    "ember-cli-babel": "^6.0.0"
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.0.0",
