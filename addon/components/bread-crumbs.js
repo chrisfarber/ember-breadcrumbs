@@ -40,8 +40,12 @@ export default Ember.Component.extend({
     controllers.forEach(function(controller, index) {
       var crumbs = controller.get("breadCrumbs") || Ember.A([]);
       var singleCrumb = controller.get("breadCrumb");
-
+      
       if (!Ember.isBlank(singleCrumb)) {
+        
+        if (typeof(singleCrumb) === 'function')
+          singleCrumb = controller.breadCrumb();
+         
         crumbs.push({
           label: singleCrumb,
           path: controller.get("breadCrumbPath"),
