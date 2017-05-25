@@ -9,7 +9,7 @@ Installation is accomplished by using `ember-cli` addons. From within your
 `ember-cli` app, do:
 
 ```
-ember install:addon ember-breadcrumbs
+npm install --save-dev ember-breadcrumbs
 ```
 
 If you have an older version of `ember-cli`, this may not work. If you're sure that your version of `ember-cli` supports addons, then you may be able to use this in lieu of upgrading:
