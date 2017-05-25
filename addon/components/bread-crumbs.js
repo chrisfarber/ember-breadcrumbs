@@ -5,7 +5,8 @@ export default Ember.Component.extend({
   applicationController: null,
 
   handlerInfos: Ember.computed("applicationController.currentPath", function() {
-    return this.get("router")._routerMicrolib.currentHandlerInfos;
+    var router = this.get("router")._routerMicrolib || this.get("router").router;
+    return router.currentHandlerInfos;
   }),
 
   /*
