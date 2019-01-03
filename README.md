@@ -1,5 +1,3 @@
-ember-breadcrumbs
-=================
 
 An Ember.js component for adding breadcrumbs to your app.
 
@@ -113,3 +111,27 @@ give the time that this project needs.
 ## License
 
 MIT License.
+=======
+my-addon
+==============================================================================
+
+[Short description of the addon.]
+
+Installation
+------------------------------------------------------------------------------
+
+```
+ember install my-addon
+```
+
+
+Usage
+------------------------------------------------------------------------------
+
+[Longer description of how to use the addon in apps.]
+
+
+License
+------------------------------------------------------------------------------
+
+This project is licensed under the [MIT License](LICENSE.md).

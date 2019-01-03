@@ -1,10 +1,13 @@
-import Ember from "ember";
+import { isBlank, isPresent } from '@ember/utils';
+import { A } from '@ember/array';
+import EmberObject, { computed, get } from '@ember/object';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
   router: null,
   applicationController: null,
 
-  handlerInfos: Ember.computed("applicationController.currentPath", function() {
+  handlerInfos: computed("applicationController.currentPath", function() {
     var router = this.get("router")._routerMicrolib || this.get("router").router;
     return router.currentHandlerInfos;
   }),
@@ -17,32 +20,32 @@ export default Ember.Component.extend({
     https://github.com/chrisfarber/ember-breadcrumbs/issues/21
   */
 
-  pathNames: Ember.computed("handlerInfos.[]", function() {
+  pathNames: computed("handlerInfos.[]", function() {
     return this.get("handlerInfos").map(function(handlerInfo) {
       return handlerInfo.name;
     });
   }),
 
-  controllers: Ember.computed("handlerInfos.[]", function() {
+  controllers: computed("handlerInfos.[]", function() {
     return this.get("handlerInfos").map(function(handlerInfo) {
       return handlerInfo.handler.controller;
     });
   }),
 
-  breadCrumbs: Ember.computed("controllers.@each.breadCrumbs",
+  breadCrumbs: computed("controllers.@each.breadCrumbs",
     "controllers.@each.breadCrumb",
     "controllers.@each.breadCrumbPath",
     "controllers.@each.breadCrumbModel",
     "pathNames.[]", function() {
     var controllers = this.get("controllers");
     var defaultPaths = this.get("pathNames");
-    var breadCrumbs = Ember.A([]);
+    var breadCrumbs = A([]);
 
     controllers.forEach(function(controller, index) {
-      var crumbs = controller.get("breadCrumbs") || Ember.A([]);
+      var crumbs = controller.get("breadCrumbs") || A([]);
       var singleCrumb = controller.get("breadCrumb");
 
-      if (!Ember.isBlank(singleCrumb)) {
+      if (!isBlank(singleCrumb)) {
         crumbs.push({
           label: singleCrumb,
           path: controller.get("breadCrumbPath"),
@@ -51,17 +54,17 @@ export default Ember.Component.extend({
       }
 
       crumbs.forEach(function (crumb) {
-        breadCrumbs.addObject(Ember.Object.create({
+        breadCrumbs.addObject(EmberObject.create({
           label: crumb.label,
           path: crumb.path || defaultPaths[index],
           model: crumb.model,
-          linkable: Ember.isPresent(crumb.linkable) ? crumb.linkable : crumb.path !== false,
+          linkable: isPresent(crumb.linkable) ? crumb.linkable : crumb.path !== false,
           isCurrent: false
         }));
       });
     });
 
-    var deepestCrumb = Ember.get(breadCrumbs, "lastObject");
+    var deepestCrumb = get(breadCrumbs, "lastObject");
     if (deepestCrumb) {
       deepestCrumb.isCurrent = true;
     }
