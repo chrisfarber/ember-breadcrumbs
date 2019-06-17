@@ -32,9 +32,8 @@ export default Component.extend({
     });
   }),
 
-  breadCrumbs: computed(`controllers.@each{
-    breadCrumbs, breadCrumb, breadCrumbPath, breadCrumbModel
-    }`, "pathNames.[]", function() {
+  breadCrumbs: computed("controllers.@each{breadCrumbs,breadCrumb,breadCrumbPath,breadCrumbModel}",
+    "pathNames.[]", function() {
     var controllers = this.get("controllers");
     var defaultPaths = this.get("pathNames");
     var breadCrumbs = A([]);
