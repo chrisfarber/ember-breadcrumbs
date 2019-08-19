@@ -5,11 +5,11 @@ import Component from '@ember/component';
 
 export default Component.extend({
   router: null,
-  applicationController: null,
+  routerService: null,
 
-  handlerInfos: computed("applicationController.currentPath", function() {
+  routeInfos: computed("routerService.currentRouteName", function() {
     var router = this.get("router")._routerMicrolib || this.get("router").router;
-    return router.currentHandlerInfos;
+    return router.currentRouteInfos || router.currentHandlerInfos;
   }),
 
   /*
@@ -20,15 +20,16 @@ export default Component.extend({
     https://github.com/chrisfarber/ember-breadcrumbs/issues/21
   */
 
-  pathNames: computed("handlerInfos.[]", function() {
-    return this.get("handlerInfos").map(function(handlerInfo) {
-      return handlerInfo.name;
+  pathNames: computed("routeInfos.[]", function() {
+    return this.get("routeInfos").map(function(routeInfo) {
+      return routeInfo.name;
     });
   }),
 
-  controllers: computed("handlerInfos.[]", function() {
-    return this.get("handlerInfos").map(function(handlerInfo) {
-      return handlerInfo.handler.controller;
+  controllers: computed("routeInfos.[]", function() {
+    return this.get("routeInfos").map(function(routeInfo) {
+      var route = routeInfo.route || routeInfo.handler;
+      return route.controller;
     });
   }),
 
