@@ -3,6 +3,6 @@ export default {
   initialize: function() {
     let application = arguments[1] || arguments[0];
     application.inject("component:bread-crumbs", "router", "router:main");
-    application.inject("component:bread-crumbs", "applicationController", "controller:application");
+    application.inject("component:bread-crumbs", "routerService", "service:router");
   }
 };
