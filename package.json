@@ -1,6 +1,6 @@
 {
   "name": "ember-breadcrumbs",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A breadcrumbs component for Ember.js",
   "keywords": [
     "ember-addon",
